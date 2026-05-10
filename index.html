@@ -1,0 +1,1538 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Rise &amp; Thrive Collective — Coaching for Women in Business</title>
+  <meta name="description" content="Rise & Thrive Collective is a coaching company built for high-achieving women. Clarity, community, and confidence to reach your next level." />
+  <meta name="theme-color" content="#E6E1D1" />
+  <meta name="color-scheme" content="light only" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&family=Italianno&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+/* =========================================================
+   Rise & Thrive Collective — v4 (self-contained)
+   ========================================================= */
+:root {
+  color-scheme: light only;
+
+  --chocolate:      #443028;
+  --oatmeal:        #E6E1D1;
+  --hazy:           #846957;
+  --plum:           #6A4E46;
+  --limewash:       #C5BCB3;
+  --green:          #2D3B2C;
+
+  --oatmeal-deep:   #DCD5C2;
+  --oatmeal-soft:   #EFEAD9;
+  --oatmeal-warm:   #F2EDDD;
+  --chocolate-soft: #5A4338;
+  --green-deep:     #1F2A1F;
+  --green-soft:     #3D4F3C;
+
+  --ff-display: "Fraunces", "Playfair Display", Georgia, serif;
+  --ff-serif:   "EB Garamond", "Garamond", Georgia, serif;
+  --ff-sans:    "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ff-script:  "Italianno", "Snell Roundhand", cursive;
+
+  --fs-xs:  0.75rem;
+  --fs-sm:  0.875rem;
+  --fs-md:  1rem;
+  --fs-lg:  1.125rem;
+  --fs-xl:  clamp(1.25rem, 1.6vw, 1.5rem);
+  --fs-h3:  clamp(1.75rem, 2.4vw, 2.25rem);
+  --fs-h2:  clamp(2.25rem, 4.5vw, 4rem);
+  --fs-h1:  clamp(2.75rem, 7vw, 6.75rem);
+  --fs-display: clamp(4rem, 14vw, 13rem);
+
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px;
+  --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px;
+  --s-10:128px; --s-11:160px; --s-12:200px;
+
+  --ease-out-expo: cubic-bezier(.16,1,.3,1);
+  --ease-in-out:   cubic-bezier(.65,0,.35,1);
+
+  --gutter: clamp(20px, 4vw, 64px);
+  --maxw:   1480px;
+  --radius: 2px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  background: #E6E1D1;
+}
+
+body {
+  font-family: var(--ff-sans);
+  font-size: var(--fs-md);
+  line-height: 1.65;
+  color: var(--chocolate);
+  background: var(--oatmeal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+img, picture, video, svg { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; }
+::selection { background: var(--green); color: var(--oatmeal); }
+
+@media (hover: hover) and (pointer: fine) {
+  body.has-cursor, body.has-cursor * { cursor: none !important; }
+}
+
+/* ---- PLACEHOLDER ---- */
+.placeholder {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(242,237,221,0.25) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 80%, rgba(197,188,179,0.4) 0%, transparent 60%),
+    linear-gradient(140deg, var(--hazy) 0%, var(--plum) 60%, var(--chocolate) 100%);
+  overflow: hidden;
+  isolation: isolate;
+}
+.placeholder::before {
+  content: attr(data-label);
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  font-family: var(--ff-script);
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  color: var(--oatmeal);
+  text-shadow: 0 2px 24px rgba(0,0,0,0.35);
+  letter-spacing: 0.02em;
+  padding: var(--s-5);
+  text-align: center;
+  z-index: 1;
+}
+.placeholder > img {
+  position: relative;
+  z-index: 2;
+  width: 100%; height: 100%; object-fit: cover;
+}
+.founder__image > img { object-position: center 25%; }
+
+/* ---- CURTAIN ---- */
+.curtain {
+  position: fixed; inset: 0; z-index: 200;
+  background: var(--oatmeal);
+  display: grid; place-items: center;
+  pointer-events: none;
+  transition: clip-path 1.1s var(--ease-out-expo), opacity .4s ease;
+  clip-path: inset(0 0 0 0);
+  animation: curtain-auto 0.001s linear 3.5s forwards;
+}
+.curtain.is-done {
+  animation: none;
+  clip-path: inset(0 0 100% 0);
+}
+@keyframes curtain-auto { to { clip-path: inset(0 0 100% 0); } }
+.curtain__inner { text-align: center; }
+.curtain__mark {
+  font-family: var(--ff-display);
+  font-size: clamp(4rem, 12vw, 9rem);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  color: var(--green);
+  display: block;
+}
+.curtain__mark em {
+  font-family: var(--ff-script);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.4em;
+  vertical-align: -0.06em;
+  margin: 0 0.05em;
+  color: var(--hazy);
+}
+.curtain__word {
+  display: block;
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-top: var(--s-4);
+  color: var(--chocolate-soft);
+}
+
+/* ---- CURSOR ---- */
+.cursor { position: fixed; top:0; left:0; pointer-events:none; z-index:999; mix-blend-mode:difference; opacity:0; transition:opacity .3s; }
+body.has-cursor .cursor { opacity:1; }
+.cursor__dot, .cursor__ring { position:absolute; top:0; left:0; border-radius:50%; transform:translate(-50%,-50%); pointer-events:none; }
+.cursor__dot { width:6px; height:6px; background:var(--oatmeal); }
+.cursor__ring { width:36px; height:36px; border:1px solid var(--oatmeal); transition:width .35s var(--ease-out-expo), height .35s var(--ease-out-expo); }
+.cursor.is-hover .cursor__ring { width:70px; height:70px; background:rgba(230,225,209,0.1); }
+
+/* ---- NAV ---- */
+.nav {
+  position: fixed; top:0; left:0; right:0;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--s-5);
+  padding: var(--s-4) var(--gutter);
+  z-index: 100;
+  transition: background .4s var(--ease-out-expo), padding .4s, backdrop-filter .4s;
+  background: rgba(230,225,209,0.0);
+}
+.nav.is-scrolled {
+  background: #E6E1D1;
+  padding-top: var(--s-3);
+  padding-bottom: var(--s-3);
+  box-shadow: 0 1px 0 rgba(45,59,44,0.08);
+}
+.nav__logo { display:inline-flex; align-items:baseline; gap:var(--s-3); font-family:var(--ff-display); letter-spacing:-0.03em; }
+.nav__logo-mark { font-size:1.5rem; font-weight:500; line-height:1; color:var(--green); }
+.nav__logo-mark em { font-family:var(--ff-script); font-style:normal; font-size:1.4em; color:var(--hazy); margin:0 0.04em; vertical-align:-0.05em; }
+.nav__logo-word { font-family:var(--ff-serif); font-style:italic; font-size:var(--fs-sm); letter-spacing:0.18em; text-transform:uppercase; color:var(--chocolate-soft); }
+.nav__links { display:flex; gap:var(--s-6); }
+.nav__links a { font-family:var(--ff-serif); font-size:var(--fs-md); font-style:italic; position:relative; padding:4px 0; color:var(--chocolate); }
+.nav__links a::after { content:""; position:absolute; left:0; bottom:-2px; width:0; height:1px; background:var(--green); transition:width .4s var(--ease-out-expo); }
+.nav__links a:hover { color:var(--green); }
+.nav__links a:hover::after { width:100%; }
+
+/* ---- BUTTONS ---- */
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s-3);
+  padding: 18px 32px;
+  font-family: var(--ff-script);
+  font-size: 1.5rem;
+  line-height: 1;
+  background: var(--green);
+  color: var(--oatmeal);
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+  transition: transform .4s var(--ease-out-expo), background .4s, color .4s;
+  will-change: transform;
+  text-decoration: none;
+}
+.btn span { position:relative; z-index:2; display:inline-block; }
+.btn::before {
+  content:""; position:absolute; inset:0;
+  background: var(--hazy);
+  border-radius: inherit;
+  transform: translateY(101%);
+  transition: transform .55s var(--ease-out-expo);
+  z-index:1;
+}
+.btn:hover::before { transform:translateY(0); }
+.btn--primary { background:var(--green); color:var(--oatmeal); }
+.btn--ghost {
+  background:transparent; color:var(--chocolate);
+  border:1px solid var(--green);
+  padding:14px 26px;
+  font-size:1.25rem;
+}
+.btn--ghost::before { background:var(--green); }
+.btn--ghost:hover { color:var(--oatmeal); }
+.btn--link { background:transparent; color:var(--chocolate); padding:18px 0; border-radius:0; }
+.btn--link::before { display:none; }
+.btn--link .arrow { font-style:normal; font-family:var(--ff-sans); transition:transform .35s var(--ease-out-expo); }
+.btn--link:hover { color:var(--green); }
+.btn--link:hover .arrow { transform:translateX(8px); }
+.nav__cta { font-size:1.1rem; padding:12px 22px; }
+
+/* ---- SECTION TAG ---- */
+.section-tag {
+  font-family: var(--ff-serif);
+  font-style: italic;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--hazy);
+  display: inline-flex; align-items: center; gap: var(--s-3);
+  margin-bottom: var(--s-5);
+}
+.section-tag--light { color:var(--limewash); }
+.section-tag::before { content:""; width:32px; height:1px; background:currentColor; opacity:0.6; }
+.eyebrow__line { width:40px; height:1px; background:currentColor; display:inline-block; opacity:0.5; }
+
+/* ---- HERO ---- */
+.hero {
+  position: relative;
+  padding: calc(var(--s-11) + 24px) var(--gutter) var(--s-9);
+  background: #E6E1D1;
+  text-align: center;
+  overflow: hidden;
+}
+.hero__eyebrow {
+  display: inline-flex; align-items: center; gap: var(--s-3);
+  font-family: var(--ff-serif); font-style:italic;
+  font-size: var(--fs-sm); letter-spacing:0.28em;
+  text-transform: uppercase; color:var(--chocolate-soft);
+  margin-bottom: var(--s-7);
+}
+.hero__lockup {
+  font-family: var(--ff-display);
+  font-weight: 300;
+  font-size: var(--fs-display);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  color: var(--green);
+  margin: 0 auto var(--s-7);
+  max-width: 1500px;
+}
+.hero__lockup-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(24px, 4vw, 64px);
+  flex-wrap: nowrap;
+}
+.hero__word { display:inline-block; }
+.hero__amp {
+  display: inline-flex; align-items: center;
+  flex-direction: column;
+  font-family: var(--ff-serif); font-style:italic; font-weight:400;
+  font-size: clamp(0.875rem, 1.4vw, 1.25rem);
+  letter-spacing: 0.4em; text-transform:uppercase;
+  color: var(--hazy);
+  padding: 0 clamp(8px, 1vw, 16px);
+}
+.hero__amp-text { padding:var(--s-2) 0; }
+.hero__amp-line { width:clamp(20px,3vw,56px); height:1px; background:var(--hazy); display:block; }
+.hero__tagline {
+  font-family: var(--ff-serif); font-style:italic;
+  font-size: clamp(1.1rem, 2vw, 1.75rem);
+  line-height: 1.4; letter-spacing:0.04em;
+  color: var(--chocolate);
+  max-width: 720px; margin:0 auto var(--s-8);
+  position: relative; z-index:2;
+}
+.hero__tagline em {
+  font-family:var(--ff-script); font-size:1.5em; font-style:normal; font-weight:400;
+  color:var(--hazy); vertical-align:middle; line-height:0.7; margin:0 0.05em;
+  position:relative; top:-0.05em;
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(8px, 1vw, 16px);
+  max-width: 1280px;
+  margin: 0 auto var(--s-8);
+  position: relative; z-index:2;
+}
+.hero__tile {
+  position: relative; overflow:hidden;
+  border-radius: var(--radius);
+  aspect-ratio: 3/4;
+  transition: transform .9s var(--ease-out-expo);
+}
+.hero__tile > img { transition:transform 1.2s var(--ease-out-expo); will-change:transform; }
+.hero__tile:hover > img { transform:scale(1.06); }
+.hero__tile--1 { grid-column:1 / span 3; }
+.hero__tile--2 { grid-column:4 / span 3; transform:translateY(28px); }
+.hero__tile--3 { grid-column:7 / span 3; }
+.hero__tile--4 { grid-column:10 / span 3; transform:translateY(28px); }
+.hero__tile--5 { display:none; }
+.hero__cta { display:inline-flex; align-items:center; gap:var(--s-5); flex-wrap:wrap; justify-content:center; position:relative; z-index:2; }
+.hero__scroll {
+  position:absolute; bottom:var(--s-6); left:var(--gutter);
+  display:flex; align-items:center; gap:var(--s-4);
+  font-family:var(--ff-serif); font-style:italic;
+  font-size:var(--fs-xs); letter-spacing:0.3em; text-transform:uppercase;
+  color:var(--chocolate-soft); z-index:3;
+}
+.hero__scroll-line {
+  width:80px; height:1px;
+  background:linear-gradient(to right, var(--chocolate-soft) 50%, transparent 50%);
+  background-size:200% 100%; background-position:100% 0;
+  animation:scroll-line 2.4s var(--ease-in-out) infinite;
+}
+@keyframes scroll-line { 0%{background-position:100% 0} 100%{background-position:-100% 0} }
+
+/* ---- TAGLINE ---- */
+.tagline {
+  padding: var(--s-12) var(--gutter);
+  text-align: center;
+  max-width: 1100px; margin:0 auto;
+}
+.tagline__quote {
+  font-family: var(--ff-display); font-weight:300;
+  font-size: clamp(1.75rem, 3.4vw, 3.25rem);
+  line-height: 1.18; letter-spacing:-0.015em;
+  color: var(--chocolate); max-width:28ch; margin:0 auto;
+}
+.tagline__quote em {
+  font-family:var(--ff-script); font-style:normal; font-size:1.7em;
+  color:var(--hazy); vertical-align:middle; line-height:0.7;
+  position:relative; top:-0.05em;
+}
+.tagline__ornament { margin-top:var(--s-7); color:var(--hazy); display:flex; justify-content:center; }
+.tagline__ornament svg { width:120px; height:24px; }
+
+/* ---- PILLARS ---- */
+.pillars {
+  padding: var(--s-11) var(--gutter);
+  background: var(--oatmeal-soft);
+  position: relative;
+}
+.pillars::before, .pillars::after {
+  content:""; position:absolute; left:0; right:0; height:1px;
+  background:linear-gradient(to right, transparent, var(--limewash) 20%, var(--limewash) 80%, transparent);
+}
+.pillars::before { top:0; }
+.pillars::after  { bottom:0; }
+.pillars__head {
+  display:flex; align-items:end; justify-content:space-between;
+  flex-wrap:wrap; gap:var(--s-6); margin-bottom:var(--s-9);
+  max-width:var(--maxw); margin-inline:auto;
+}
+.pillars__title {
+  font-family:var(--ff-display); font-weight:300;
+  font-size:var(--fs-h2); line-height:1.02; letter-spacing:-0.02em;
+  max-width:18ch; color:var(--green);
+}
+.pillars__title em {
+  font-family:var(--ff-script); font-style:normal; font-size:1.6em;
+  color:var(--hazy); vertical-align:middle; line-height:0.7;
+  position:relative; top:-0.04em;
+}
+.pillars__grid {
+  display:grid; grid-template-columns:repeat(3, 1fr);
+  gap:var(--s-6); max-width:var(--maxw); margin-inline:auto;
+}
+.pillar { position:relative; }
+.pillar__media { aspect-ratio:4/5; margin-bottom:var(--s-5); border-radius:var(--radius); }
+.pillar__media > img { transition:transform 1.4s var(--ease-out-expo); will-change:transform; }
+.pillar:hover .pillar__media > img { transform:scale(1.06); }
+.pillar__media-tag {
+  position:absolute; top:var(--s-4); left:var(--s-4);
+  font-family:var(--ff-display); font-size:var(--fs-sm); letter-spacing:0.3em;
+  color:var(--oatmeal); background:rgba(45,59,44,0.72);
+  backdrop-filter:blur(6px); padding:6px 12px; border-radius:999px; z-index:3;
+}
+.pillar__title {
+  font-family:var(--ff-display); font-weight:400;
+  font-size:var(--fs-h3); letter-spacing:-0.01em;
+  margin-bottom:var(--s-3); color:var(--chocolate);
+}
+.pillar__body p {
+  font-family:var(--ff-serif); font-size:var(--fs-lg);
+  line-height:1.55; color:var(--chocolate-soft); max-width:36ch;
+}
+
+/* ---- FOUNDER — DEEP GREEN ---- */
+.founder {
+  position:relative; padding:var(--s-12) var(--gutter);
+  background:var(--green); color:var(--oatmeal); overflow:hidden;
+}
+.founder__bg {
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse at 80% 0%, rgba(132,105,87,0.25) 0%, transparent 60%),
+    radial-gradient(ellipse at 0% 100%, rgba(106,78,70,0.30) 0%, transparent 55%);
+  opacity:0.9; pointer-events:none;
+}
+.founder__inner {
+  position:relative; z-index:2;
+  display:grid; grid-template-columns:1fr 1.05fr;
+  gap:var(--s-9); align-items:center;
+  max-width:var(--maxw); margin:0 auto;
+}
+.founder__image { aspect-ratio:4/5; border-radius:var(--radius); box-shadow:0 30px 80px -20px rgba(0,0,0,0.4); }
+.founder__title {
+  font-family:var(--ff-display); font-weight:300;
+  font-size:var(--fs-h2); line-height:1.04; letter-spacing:-0.02em;
+  margin-bottom:var(--s-6); color:var(--oatmeal);
+}
+.founder__title em {
+  font-family:var(--ff-script); font-style:normal; font-size:1.6em;
+  color:var(--limewash); vertical-align:middle; line-height:0.7;
+  position:relative; top:-0.04em;
+}
+.founder__body {
+  font-family:var(--ff-serif); font-size:var(--fs-lg);
+  line-height:1.7; color:var(--limewash);
+  margin-bottom:var(--s-5); max-width:56ch;
+}
+.founder__sign {
+  margin-top:var(--s-6); padding-top:var(--s-5);
+  border-top:1px solid rgba(230,225,209,0.2);
+  display:flex; flex-direction:column; gap:var(--s-1);
+}
+.founder__signature {
+  font-family:var(--ff-script); font-size:clamp(2.75rem,4.5vw,4rem);
+  color:var(--oatmeal); line-height:1;
+}
+.founder__role {
+  font-family:var(--ff-serif); font-style:italic;
+  font-size:var(--fs-sm); letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--limewash);
+}
+.founder__link {
+  display:inline-flex; align-items:center; gap:var(--s-3);
+  margin-top:var(--s-6); padding:12px 20px;
+  border:1px solid rgba(230,225,209,0.3); border-radius:999px;
+  font-family:var(--ff-serif); font-style:italic; font-size:var(--fs-md);
+  color:var(--oatmeal); transition:background .4s var(--ease-out-expo), border-color .4s, color .4s;
+}
+.founder__link:hover { background:var(--oatmeal); color:var(--green); border-color:var(--oatmeal); }
+.founder__link .arrow { font-style:normal; font-family:var(--ff-sans); transition:transform .35s var(--ease-out-expo); }
+.founder__link:hover .arrow { transform:translateX(6px); }
+
+/* ---- STORY (STICKY) ---- */
+.story { background:var(--chocolate); color:var(--oatmeal); position:relative; overflow:clip; }
+.story__sticky { display:grid; grid-template-columns:1fr 1fr; height:300vh; }
+.story__media { position:sticky; top:0; height:100vh; }
+.story__media > img {
+  position:absolute; inset:0;
+  width:100%; height:100%; object-fit:cover;
+  opacity:0; transition:opacity .8s var(--ease-out-expo); z-index:2;
+}
+.story__media > img[data-frame="0"] { opacity:1; }
+.story__media > img[data-frame="1"] { opacity:1; } /* fallback if frame-0 missing */
+.story__media.show-1 > img[data-frame="0"] { opacity:0; }
+.story__media.show-1 > img[data-frame="1"] { opacity:1; }
+.story__media.show-2 > img[data-frame="0"],
+.story__media.show-2 > img[data-frame="1"] { opacity:0; }
+.story__media.show-2 > img[data-frame="2"] { opacity:1; }
+.story__panels { display:flex; flex-direction:column; }
+.story__panel {
+  height:100vh; padding:var(--s-9) var(--gutter);
+  display:flex; flex-direction:column; justify-content:center;
+  max-width:580px;
+}
+.story__panel .section-tag { color:var(--limewash); }
+.story__panel .section-tag::before { background:var(--limewash); }
+.story__title {
+  font-family:var(--ff-display); font-weight:300;
+  font-size:var(--fs-h2); line-height:1.04; letter-spacing:-0.02em;
+  margin-bottom:var(--s-5); color:var(--oatmeal);
+}
+.story__title em {
+  font-family:var(--ff-script); font-style:normal; font-size:1.6em;
+  color:var(--limewash); vertical-align:middle; line-height:0.7;
+  position:relative; top:-0.04em;
+}
+.story__panel p { font-family:var(--ff-serif); font-size:var(--fs-xl); line-height:1.55; color:var(--limewash); }
+
+/* ---- MARQUEE ---- */
+.marquee {
+  background: var(--oatmeal);
+  padding: var(--s-9) 0;
+  overflow: hidden;
+  border-top: 1px solid var(--limewash);
+  border-bottom: 1px solid var(--limewash);
+}
+.marquee__row {
+  display:flex; white-space:nowrap; width:max-content;
+  animation: marquee-left 40s linear infinite;
+}
+.marquee__row[data-direction="right"] { animation:marquee-right 40s linear infinite; }
+.marquee__row + .marquee__row { margin-top:var(--s-5); }
+.marquee__track { display:flex; align-items:center; gap:var(--s-6); padding-right:var(--s-6); }
+.marquee__row span {
+  font-family:var(--ff-display); font-weight:300;
+  font-size:clamp(2.5rem,6vw,5.5rem); letter-spacing:-0.02em;
+  color:var(--green); line-height:1;
+}
+.marquee__row .dot { color:var(--hazy); }
+.marquee__row--alt span { font-style:italic; font-weight:300; font-size:clamp(2rem,4.5vw,4rem); color:var(--hazy); }
+@keyframes marquee-left  { from{transform:translateX(0)}     to{transform:translateX(-50%)} }
+@keyframes marquee-right { from{transform:translateX(-50%)}  to{transform:translateX(0)}    }
+
+/* ---- COLLECTIVE ---- */
+.collective {
+  padding: var(--s-12) var(--gutter);
+  background: linear-gradient(180deg, var(--oatmeal-warm) 0%, var(--oatmeal) 100%);
+}
+.collective__head { text-align:center; max-width:720px; margin:0 auto var(--s-8); }
+.collective__title {
+  font-family:var(--ff-display); font-weight:300;
+  font-size:var(--fs-h1); line-height:1; letter-spacing:-0.025em;
+  color:var(--green); margin-bottom:var(--s-5);
+}
+.collective__intro {
+  font-family:var(--ff-serif); font-size:var(--fs-xl);
+  line-height:1.55; color:var(--chocolate-soft);
+}
+.collective__card {
+  max-width:1180px; margin:0 auto;
+  background:var(--oatmeal-soft);
+  border:1px solid var(--limewash);
+  border-radius:4px;
+  padding:clamp(28px,4vw,64px);
+  box-shadow:0 40px 80px -30px rgba(45,59,44,0.18);
+  position:relative;
+}
+.collective__card::before {
+  content:""; position:absolute;
+  top:-1px; left:30%; right:30%; height:4px;
+  background:var(--green);
+}
+.collective__card-head {
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:var(--s-5);
+  padding-bottom:var(--s-7); margin-bottom:var(--s-7);
+  border-bottom:1px solid var(--limewash);
+}
+.collective__price { display:flex; align-items:baseline; gap:var(--s-3); flex-wrap:wrap; }
+.collective__price-num {
+  font-family:var(--ff-display); font-weight:300;
+  font-size:clamp(3rem,6vw,5rem); letter-spacing:-0.03em;
+  color:var(--green); line-height:1;
+}
+.collective__price-meta {
+  font-family:var(--ff-serif); font-style:italic;
+  font-size:var(--fs-md); letter-spacing:0.05em; color:var(--chocolate-soft);
+}
+.collective__list {
+  list-style:none;
+  display:grid; grid-template-columns:repeat(2,1fr);
+  gap:var(--s-5) var(--s-7);
+  counter-reset:collective;
+}
+.collective__item {
+  position:relative; padding:var(--s-5) 0 var(--s-5) var(--s-7);
+  border-bottom:1px dashed var(--limewash);
+  counter-increment:collective;
+  transition:padding .35s var(--ease-out-expo);
+}
+.collective__item::before {
+  content:counter(collective, decimal-leading-zero);
+  position:absolute; left:0; top:var(--s-5);
+  font-family:var(--ff-display); font-style:italic;
+  font-size:var(--fs-sm); letter-spacing:0.2em; color:var(--hazy);
+}
+.collective__item:hover { padding-left:calc(var(--s-7) + 8px); }
+.collective__item h4 {
+  font-family:var(--ff-display); font-weight:500;
+  font-size:var(--fs-lg); letter-spacing:-0.005em;
+  color:var(--chocolate); margin-bottom:6px;
+}
+.collective__item p {
+  font-family:var(--ff-serif); font-size:var(--fs-md);
+  line-height:1.5; color:var(--chocolate-soft);
+}
+.collective__title em {
+  font-family:var(--ff-script); font-style:normal; font-size:1.1em;
+  color:var(--hazy); vertical-align:middle; line-height:0.7;
+  position:relative; top:-0.04em;
+}
+
+/* ---- TESTIMONIALS ---- */
+.testimonials {
+  padding: var(--s-12) var(--gutter);
+  background: var(--oatmeal);
+}
+.testimonials__head { text-align:center; max-width:720px; margin:0 auto var(--s-9); }
+.testimonials__title {
+  font-family:var(--ff-display); font-weight:300;
+  font-size:var(--fs-h1); line-height:1; letter-spacing:-0.025em;
+  color:var(--green); margin-top:var(--s-5);
+}
+.testimonials__title em {
+  font-family:var(--ff-script); font-style:normal; font-size:1.5em;
+  color:var(--hazy); vertical-align:middle; line-height:0.7;
+  position:relative; top:-0.04em;
+}
+.testimonials__grid {
+  max-width:1300px; margin:0 auto;
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:var(--s-6);
+}
+.testimonial {
+  position:relative;
+  background:var(--oatmeal-soft);
+  border:1px solid var(--limewash);
+  border-radius:4px;
+  padding: var(--s-9) var(--s-7) var(--s-7);
+  display:flex; flex-direction:column;
+  transition: transform .5s var(--ease-out-expo), box-shadow .5s var(--ease-out-expo);
+}
+.testimonial:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px -25px rgba(45,59,44,0.18);
+}
+.testimonial__mark {
+  position:absolute; top:14px; left:24px;
+  font-family:var(--ff-display); font-style:italic;
+  font-size:6rem; line-height:1; color:var(--hazy);
+  opacity:0.25; pointer-events:none;
+}
+.testimonial__quote {
+  font-family:var(--ff-serif); font-style:italic;
+  font-size:var(--fs-lg); line-height:1.55;
+  color:var(--chocolate); margin:0 0 var(--s-6);
+  flex:1;
+}
+.testimonial__cite {
+  display:flex; flex-direction:column; gap:4px;
+  padding-top:var(--s-5); border-top:1px solid var(--limewash);
+}
+.testimonial__name {
+  font-family:var(--ff-display); font-weight:500;
+  font-size:var(--fs-md); color:var(--chocolate); letter-spacing:0.01em;
+}
+.testimonial__role {
+  font-family:var(--ff-sans); font-size:var(--fs-xs);
+  letter-spacing:0.18em; text-transform:uppercase; color:var(--hazy);
+}
+@media (max-width: 1100px) {
+  .testimonials__grid { grid-template-columns:1fr; max-width:640px; }
+}
+
+/* ---- PROMISE ---- */
+.promise {
+  background: var(--green-deep);
+  color: var(--oatmeal);
+  padding: var(--s-12) var(--gutter);
+  text-align: center;
+  position: relative; overflow:hidden;
+}
+.promise::before, .promise::after {
+  content:""; position:absolute; pointer-events:none;
+  background:radial-gradient(circle at center, rgba(132,105,87,0.5) 0%, transparent 60%);
+  width:70vw; height:70vw; border-radius:50%;
+}
+.promise::before { top:-25vw; left:-15vw; }
+.promise::after  { bottom:-25vw; right:-15vw; background:radial-gradient(circle at center, rgba(106,78,70,0.45) 0%, transparent 60%); }
+.promise__title {
+  font-family:var(--ff-display); font-weight:300;
+  font-size:var(--fs-h1); line-height:1.04; letter-spacing:-0.025em;
+  max-width:18ch; margin:0 auto var(--s-7);
+  position:relative; z-index:2; color:var(--oatmeal);
+}
+.promise__title em {
+  font-family:var(--ff-script); font-style:normal; font-weight:400;
+  font-size:1.7em; color:var(--limewash); line-height:0.7;
+  vertical-align:middle; position:relative; top:-0.04em;
+}
+.promise__body {
+  font-family:var(--ff-serif); font-size:var(--fs-xl); line-height:1.6;
+  max-width:640px; margin:0 auto; color:var(--limewash);
+  position:relative; z-index:2;
+}
+
+/* ---- CONTACT ---- */
+.contact { padding:var(--s-12) var(--gutter); background:var(--oatmeal); }
+.contact__inner {
+  display:grid; grid-template-columns:1fr 1fr; gap:var(--s-9);
+  max-width:var(--maxw); margin:0 auto; align-items:start;
+}
+.contact__title {
+  font-family:var(--ff-display); font-weight:300;
+  font-size:var(--fs-h1); line-height:1; letter-spacing:-0.025em;
+  margin-bottom:var(--s-5); color:var(--green);
+}
+.contact__title em {
+  font-family:var(--ff-script); font-style:normal; font-size:1.6em;
+  color:var(--hazy); vertical-align:middle; line-height:0.7;
+  position:relative; top:-0.04em;
+}
+.contact__body {
+  font-family:var(--ff-serif); font-size:var(--fs-xl); line-height:1.55;
+  color:var(--chocolate-soft); margin-bottom:var(--s-8); max-width:44ch;
+}
+.contact__details { list-style:none; display:flex; flex-direction:column; gap:var(--s-5); }
+.contact__details li {
+  display:grid; grid-template-columns:100px 1fr; gap:var(--s-5); align-items:baseline;
+  padding-bottom:var(--s-4); border-bottom:1px solid var(--limewash);
+}
+.contact__label {
+  font-family:var(--ff-serif); font-style:italic;
+  font-size:var(--fs-xs); letter-spacing:0.3em; text-transform:uppercase; color:var(--hazy);
+}
+.contact__value { font-family:var(--ff-display); font-size:var(--fs-h3); line-height:1.2; color:var(--chocolate); }
+.contact__value a { transition:color .3s; }
+.contact__value a:hover { color:var(--green); }
+.contact__form {
+  display:flex; flex-direction:column; gap:var(--s-5);
+  background:var(--oatmeal-soft); padding:var(--s-8);
+  border-radius:var(--radius); border:1px solid var(--limewash);
+  position:relative;
+}
+.contact__form::before {
+  content:""; position:absolute; top:0; left:30%; right:30%; height:3px; background:var(--green);
+}
+.field { display:flex; flex-direction:column; gap:var(--s-2); }
+.field span {
+  font-family:var(--ff-serif); font-style:italic;
+  font-size:var(--fs-sm); letter-spacing:0.18em; text-transform:uppercase; color:var(--hazy);
+}
+.field input, .field textarea {
+  width:100%; padding:14px 0; background:transparent; border:0;
+  border-bottom:1px solid var(--limewash);
+  font-family:var(--ff-serif); font-size:var(--fs-lg); color:var(--chocolate);
+  transition:border-color .3s; resize:vertical; outline:none;
+}
+.field input:focus, .field textarea:focus { border-bottom-color:var(--green); }
+.contact__submit { margin-top:var(--s-4); align-self:start; }
+
+/* ---- FOOTER ---- */
+.footer {
+  background:var(--green-deep); color:var(--oatmeal);
+  padding:var(--s-9) var(--gutter) var(--s-5);
+  position:relative; overflow:hidden;
+}
+.footer__top {
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:var(--s-5);
+  padding-bottom:var(--s-7);
+  border-bottom:1px solid rgba(230,225,209,0.15);
+  position:relative; z-index:2;
+}
+.footer__mark {
+  font-family:var(--ff-display); font-weight:300;
+  font-size:clamp(2.5rem,6vw,5rem); letter-spacing:-0.03em; line-height:1; color:var(--oatmeal);
+}
+.footer__mark em {
+  font-family:var(--ff-script); font-style:normal; font-size:1.5em;
+  color:var(--limewash); margin:0 0.04em; vertical-align:-0.1em;
+}
+.footer__tag { font-family:var(--ff-serif); font-style:italic; font-size:var(--fs-lg); color:var(--limewash); letter-spacing:0.05em; }
+.footer__bottom {
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:var(--s-4); padding-top:var(--s-5);
+  font-family:var(--ff-serif); font-style:italic;
+  font-size:var(--fs-sm); color:var(--limewash);
+  position:relative; z-index:2;
+}
+.footer__links { list-style:none; display:flex; gap:var(--s-5); }
+.footer__links a { transition:color .3s; }
+.footer__links a:hover { color:var(--oatmeal); }
+
+/* ---- REVEAL (JS guarded) ---- */
+.js [data-reveal] {
+  opacity:0; transform:translateY(28px);
+  transition:opacity .9s var(--ease-out-expo), transform 1.1s var(--ease-out-expo);
+}
+.js [data-reveal].is-in { opacity:1; transform:translateY(0); }
+.js [data-pillar] .pillar__media { clip-path:inset(0 0 100% 0); transition:clip-path 1.2s var(--ease-out-expo); }
+.js [data-pillar].is-in .pillar__media { clip-path:inset(0 0 0% 0); }
+.js [data-pillar] .pillar__body { opacity:0; transform:translateY(20px); transition:opacity .8s .25s var(--ease-out-expo), transform 1s .25s var(--ease-out-expo); }
+.js [data-pillar].is-in .pillar__body { opacity:1; transform:translateY(0); }
+
+/* ---- TEXT LOGO ---- */
+.logo-rt { display:inline-flex; align-items:center; gap:clamp(6px,1.2vw,20px); font-family:"Montserrat", sans-serif; font-weight:600; letter-spacing:0.08em; color:#000; line-height:1; }
+.logo-rt__and { writing-mode:vertical-rl; transform:rotate(180deg); font-family:"Montserrat", sans-serif; font-style:normal; font-weight:400; font-size:0.13em; letter-spacing:0.5em; text-transform:uppercase; color:#000; align-self:center; opacity:0.6; }
+.logo-rt--light { color:var(--oatmeal); }
+.logo-rt--light .logo-rt__and { color:var(--oatmeal); opacity:0.7; }
+
+/* ---- FOCUS ---- */
+:focus-visible { outline:2px solid var(--green); outline-offset:4px; border-radius:2px; }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 1100px) {
+  .hero__lockup-row { gap:clamp(16px,3vw,32px); }
+  .pillars__grid { grid-template-columns:1fr 1fr; }
+  .founder__inner { grid-template-columns:1fr; gap:var(--s-7); }
+  .contact__inner { grid-template-columns:1fr; gap:var(--s-7); }
+  .nav__links { display:none; }
+  .collective__list { grid-template-columns:1fr; }
+}
+@media (max-width: 768px) {
+  :root { --gutter:20px; --fs-display:clamp(3rem,18vw,6rem); }
+  .nav { padding:var(--s-3) var(--gutter); }
+  .nav__cta { display:none; }
+  .hero { padding-top:calc(var(--s-9) + 24px); padding-bottom:var(--s-8); }
+  .hero__lockup-row { flex-direction:column; gap:var(--s-2); }
+  .hero__amp { flex-direction:row; }
+  .hero__amp-line { width:32px; }
+  .hero__grid { grid-template-columns:repeat(6,1fr); gap:8px; }
+  .hero__tile--1,.hero__tile--3 { grid-column:span 3; transform:none; }
+  .hero__tile--2,.hero__tile--4 { grid-column:span 3; transform:none; }
+  .hero__cta { gap:var(--s-3); }
+  .hero__scroll { display:none; }
+  .tagline { padding:var(--s-9) var(--gutter); }
+  .pillars { padding:var(--s-9) var(--gutter); }
+  .pillars__grid { grid-template-columns:1fr; gap:var(--s-7); }
+  .pillars__head { margin-bottom:var(--s-7); }
+  .founder,.contact,.promise,.collective { padding:var(--s-9) var(--gutter); }
+  .story__sticky { grid-template-columns:1fr; height:auto; }
+  .story__media { position:relative; height:60vh; top:auto; }
+  .story__media > img { opacity:1; position:relative; }
+  .story__media > img[data-frame="1"],.story__media > img[data-frame="2"] { display:none; }
+  .story__panel { height:auto; padding:var(--s-8) var(--gutter); }
+  .collective__card { padding:var(--s-6); }
+  .collective__card-head { flex-direction:column; align-items:flex-start; }
+  .contact__details li { grid-template-columns:80px 1fr; gap:var(--s-3); }
+  .contact__form { padding:var(--s-6); }
+  .footer { padding:var(--s-7) var(--gutter) var(--s-4); }
+  .footer__top { padding-bottom:var(--s-5); flex-direction:column; align-items:flex-start; }
+  .footer__bottom { flex-direction:column; align-items:flex-start; gap:var(--s-3); }
+}
+@media (pointer: coarse) {
+  body.has-cursor { cursor:auto !important; }
+  body.has-cursor * { cursor:auto !important; }
+  .cursor { display:none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  .js [data-reveal],.js [data-pillar] { opacity:1 !important; transform:none !important; clip-path:none !important; }
+  .js [data-pillar] .pillar__media { clip-path:none !important; }
+  .js [data-pillar] .pillar__body { opacity:1 !important; transform:none !important; }
+}
+</style>
+</head>
+<body>
+
+  <!-- ========== LOADER CURTAIN ========== -->
+  <div class="curtain" aria-hidden="true">
+    <div class="curtain__inner">
+      <span style="display:block; width:min(560px,80vw); aspect-ratio:6/1; background:url('images/logo.jpg') center/cover no-repeat, #E6E1D1; background-blend-mode:multiply; margin:0 auto 24px;"></span>
+      <span class="curtain__word">Rise &amp; Thrive Collective</span>
+    </div>
+  </div>
+
+  <!-- ========== CUSTOM CURSOR ========== -->
+  <div class="cursor" aria-hidden="true">
+    <div class="cursor__dot"></div>
+    <div class="cursor__ring"></div>
+  </div>
+
+  <!-- ========== NAV ========== -->
+  <header class="nav">
+    <a href="#top" class="nav__logo" data-magnetic>
+      <span style="display:block; width:200px; height:42px; background:url('images/logo.jpg') center/cover no-repeat, #E6E1D1; background-blend-mode:multiply;"></span>
+    </a>
+    <nav class="nav__links">
+      <a href="#top">Home</a>
+      <a href="#mission">Mission</a>
+      <a href="#pillars">The Work</a>
+      <a href="#founder">Founder</a>
+      <a href="#offerings">Offerings</a>
+      <a href="#testimonials">Stories</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="btn btn--ghost nav__cta" data-magnetic><span>Join the Collective</span></a>
+  </header>
+
+  <main id="top">
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" data-section="hero">
+      <p class="hero__eyebrow">
+        <span class="eyebrow__line"></span>
+        Established 2025 · For women in business
+      </p>
+
+      <h1 class="hero__lockup" aria-label="Rise and Thrive">
+        <img src="images/logo.jpg" alt="Rise & Thrive Collective" style="width:min(880px,90vw); aspect-ratio:6/1; height:auto; object-fit:cover; object-position:center; display:block; margin:0 auto; mix-blend-mode:multiply;" />
+      </h1>
+
+      <p class="hero__tagline" data-split>
+        We are opening the room <em>and</em> widening the table.
+      </p>
+
+      <div class="hero__grid">
+        <figure class="hero__tile hero__tile--1 placeholder" data-label="Architecture">
+          <img src="images/hero-1.jpg" alt="" onerror="this.remove()" loading="eager" />
+        </figure>
+        <figure class="hero__tile hero__tile--2 placeholder" data-label="Form">
+          <img src="images/hero-2.jpg" alt="" onerror="this.remove()" loading="eager" />
+        </figure>
+        <figure class="hero__tile hero__tile--3 placeholder" data-label="Workspace">
+          <img src="images/hero-3.jpg" alt="" onerror="this.remove()" loading="eager" />
+        </figure>
+        <figure class="hero__tile hero__tile--4 placeholder" data-label="Ritual">
+          <img src="images/hero-4.jpg" alt="" onerror="this.remove()" loading="eager" />
+        </figure>
+      </div>
+
+      <div class="hero__cta">
+        <a href="#contact" class="btn btn--primary" data-magnetic><span>Join the Collective</span></a>
+        <a href="#mission" class="btn btn--link" data-magnetic><span>Read our story</span><i class="arrow">→</i></a>
+      </div>
+
+      <div class="hero__scroll" aria-hidden="true">
+        <span>Scroll</span>
+        <span class="hero__scroll-line"></span>
+      </div>
+    </section>
+
+    <!-- ========== MISSION / TAGLINE ========== -->
+    <section class="tagline" id="mission">
+      <p class="section-tag" data-reveal>01 — Our Why</p>
+
+      <blockquote class="tagline__quote" data-split>
+        Rise and Thrive is a way to trust your own authority,
+        to move through confidently and anchor into your why,
+        to clear the noise and step into the success that only
+        <em>your vision and courage</em> could have built.
+      </blockquote>
+
+      <div class="tagline__ornament" aria-hidden="true">
+        <svg viewBox="0 0 120 24" fill="none">
+          <path d="M0 12 H40" stroke="currentColor" stroke-width="1" />
+          <circle cx="60" cy="12" r="3" stroke="currentColor" stroke-width="1" fill="none"/>
+          <path d="M80 12 H120" stroke="currentColor" stroke-width="1" />
+        </svg>
+      </div>
+    </section>
+
+    <!-- ========== PILLARS ========== -->
+    <section class="pillars" id="pillars">
+      <header class="pillars__head">
+        <p class="section-tag" data-reveal>02 — The Work</p>
+        <h2 class="pillars__title" data-split>Three pillars. <em>One transformation.</em></h2>
+      </header>
+
+      <div class="pillars__grid">
+        <article class="pillar" data-pillar>
+          <figure class="pillar__media placeholder" data-label="Coaching">
+            <img src="images/pillar-coaching.jpg" alt="" onerror="this.remove()" loading="lazy" />
+            <span class="pillar__media-tag">01</span>
+          </figure>
+          <div class="pillar__body">
+            <h3 class="pillar__title">Coaching</h3>
+            <p>One-to-one and group coaching grounded in lived experience and Jack Canfield's Success Principles. We lead with clarity. We follow with action.</p>
+          </div>
+        </article>
+
+        <article class="pillar" data-pillar>
+          <figure class="pillar__media placeholder" data-label="Community">
+            <img src="images/pillar-community.jpg" alt="" onerror="this.remove()" loading="lazy" />
+            <span class="pillar__media-tag">02</span>
+          </figure>
+          <div class="pillar__body">
+            <h3 class="pillar__title">Community</h3>
+            <p>A room of women who hold each other accountable, who celebrate the wins and meet the hard seasons with strategy, not platitudes.</p>
+          </div>
+        </article>
+
+        <article class="pillar" data-pillar>
+          <figure class="pillar__media placeholder" data-label="Connection">
+            <img src="images/pillar-connection.jpg" alt="" onerror="this.remove()" loading="lazy" />
+            <span class="pillar__media-tag">03</span>
+          </figure>
+          <div class="pillar__body">
+            <h3 class="pillar__title">Connection</h3>
+            <p>Rooms, retreats, and rituals designed to put you in front of the women who will shape your next chapter — and become the ones who shape yours.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========== FOUNDER ========== -->
+    <section class="founder" id="founder">
+      <div class="founder__bg" aria-hidden="true"></div>
+      <div class="founder__inner">
+        <figure class="founder__image placeholder" data-label="Jas Rai" data-parallax>
+          <img src="images/founder.jpg" alt="Jas Rai, founder of Rise &amp; Thrive Collective" onerror="this.remove()" loading="lazy" />
+        </figure>
+
+        <div class="founder__copy">
+          <p class="section-tag section-tag--light" data-reveal>03 — The Founder</p>
+          <h2 class="founder__title" data-split>
+            Built by a woman <em>who has lived it.</em>
+          </h2>
+          <p class="founder__body" data-reveal>
+            Rise &amp; Thrive is grounded in the understanding that women don't just need motivation — they need a room, a strategy, and a community that holds them accountable. Every program, every conversation, every resource is designed to deliver real ROI, both personally and professionally.
+          </p>
+          <p class="founder__body" data-reveal>
+            The brand voice is warm, real, and deeply human. Powerful, never intimidating. Honest and direct, but always in your corner — the most successful woman in the room who still makes everyone feel welcome.
+          </p>
+
+          <div class="founder__sign" data-reveal>
+            <span class="founder__signature">Jas Rai</span>
+            <span class="founder__role">Founder · Rise &amp; Thrive Collective</span>
+          </div>
+
+          <a href="https://linktr.ee/jas.drai" target="_blank" rel="noopener" class="founder__link" data-reveal data-magnetic>
+            <span>linktr.ee/jas.drai</span><i class="arrow">→</i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== STICKY STORYTELLING ========== -->
+    <section class="story">
+      <div class="story__sticky">
+        <figure class="story__media placeholder" data-label="The Method · The Vision · The Promise" data-story-image>
+          <img src="images/story-1.jpg" data-frame="0" alt="" onerror="this.remove()" loading="lazy" />
+          <img src="images/story-2.jpg" data-frame="1" alt="" onerror="this.remove()" loading="lazy" />
+          <img src="images/story-3.jpg" data-frame="2" alt="" onerror="this.remove()" loading="lazy" />
+        </figure>
+
+        <div class="story__panels">
+          <article class="story__panel" data-panel="0">
+            <p class="section-tag">04 — The Method</p>
+            <h2 class="story__title">Built on the <em>Success Principles.</em></h2>
+            <p>Every program inside Rise &amp; Thrive is grounded in Jack Canfield's proven Success Principles — translated into language that meets women where they are, in the seasons they're in.</p>
+          </article>
+
+          <article class="story__panel" data-panel="1">
+            <p class="section-tag">05 — The Vision</p>
+            <h2 class="story__title">A movement, <em>not a membership.</em></h2>
+            <p>We envision chapters in cities across the world — a global community where ambitious women at every stage of their journey find their people, their strategy, and their next level.</p>
+          </article>
+
+          <article class="story__panel" data-panel="2">
+            <p class="section-tag">06 — The Promise</p>
+            <h2 class="story__title">Your investment <em>comes back tenfold.</em></h2>
+            <p>Every woman who walks through our doors is met with a clear path, a genuine community, and the tools to turn ambition into action. This is not motivation. It is transformation.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== KEYWORDS MARQUEE ========== -->
+    <section class="marquee" aria-hidden="true">
+      <div class="marquee__row" data-marquee data-direction="left">
+        <div class="marquee__track">
+          <span>Elevate</span><span class="dot">·</span>
+          <span>Community</span><span class="dot">·</span>
+          <span>Empowered</span><span class="dot">·</span>
+          <span>Intentional</span><span class="dot">·</span>
+          <span>Real</span><span class="dot">·</span>
+          <span>Abundant</span><span class="dot">·</span>
+          <span>Confident</span><span class="dot">·</span>
+          <span>Supported</span><span class="dot">·</span>
+          <span>Rising</span><span class="dot">·</span>
+          <span>Thrive</span><span class="dot">·</span>
+        </div>
+        <div class="marquee__track" aria-hidden="true">
+          <span>Elevate</span><span class="dot">·</span>
+          <span>Community</span><span class="dot">·</span>
+          <span>Empowered</span><span class="dot">·</span>
+          <span>Intentional</span><span class="dot">·</span>
+          <span>Real</span><span class="dot">·</span>
+          <span>Abundant</span><span class="dot">·</span>
+          <span>Confident</span><span class="dot">·</span>
+          <span>Supported</span><span class="dot">·</span>
+          <span>Rising</span><span class="dot">·</span>
+          <span>Thrive</span><span class="dot">·</span>
+        </div>
+      </div>
+
+      <div class="marquee__row marquee__row--alt" data-marquee data-direction="right">
+        <div class="marquee__track">
+          <span><em>opening the room</em></span><span class="dot">·</span>
+          <span><em>widening the table</em></span><span class="dot">·</span>
+          <span><em>opening the room</em></span><span class="dot">·</span>
+          <span><em>widening the table</em></span><span class="dot">·</span>
+          <span><em>opening the room</em></span><span class="dot">·</span>
+          <span><em>widening the table</em></span><span class="dot">·</span>
+        </div>
+        <div class="marquee__track" aria-hidden="true">
+          <span><em>opening the room</em></span><span class="dot">·</span>
+          <span><em>widening the table</em></span><span class="dot">·</span>
+          <span><em>opening the room</em></span><span class="dot">·</span>
+          <span><em>widening the table</em></span><span class="dot">·</span>
+          <span><em>opening the room</em></span><span class="dot">·</span>
+          <span><em>widening the table</em></span><span class="dot">·</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== THE COLLECTIVE ========== -->
+    <!-- ========== WHAT WE OFFER ========== -->
+    <section class="collective" id="offerings">
+      <div class="collective__head">
+        <p class="section-tag" data-reveal>07 — What We Offer</p>
+        <h2 class="collective__title" data-split>Inside <em>the room.</em></h2>
+        <p class="collective__intro" data-reveal>
+          Every offering is designed to keep you connected, supported, and rising — community, coaching, and the tools to turn ambition into action.
+        </p>
+      </div>
+
+      <div class="collective__card" data-reveal>
+        <ul class="collective__list">
+          <li class="collective__item">
+            <h4>Community</h4>
+            <p>Connect with a curated group of high-achieving women.</p>
+          </li>
+          <li class="collective__item">
+            <h4>Bi-weekly Mastermind Sessions</h4>
+            <p>Peer-powered sessions using Jack Canfield's Success Principles to help you think bigger, move faster, and stay accountable.</p>
+          </li>
+          <li class="collective__item">
+            <h4>Collaboration</h4>
+            <p>Opportunities to partner, refer, and grow alongside women in the collective.</p>
+          </li>
+          <li class="collective__item">
+            <h4>1:1 Coaching</h4>
+            <p>One private coaching session for members who want deeper personalised support.</p>
+          </li>
+          <li class="collective__item">
+            <h4>Coffee Chats</h4>
+            <p>Casual connection calls to build real relationships within the community.</p>
+          </li>
+          <li class="collective__item">
+            <h4>Workshops</h4>
+            <p>Skill-building sessions designed for women ready to build.</p>
+          </li>
+          <li class="collective__item">
+            <h4>Founder's Dinners</h4>
+            <p>Intimate in-person gatherings to connect, celebrate, and go deeper together.</p>
+          </li>
+          <li class="collective__item">
+            <h4>Accountability Partner</h4>
+            <p>Get matched with a like-minded member to keep each other on track between sessions.</p>
+          </li>
+          <li class="collective__item">
+            <h4>Space to Host Your Own Events</h4>
+            <p>King George Chopped Leaf location to host your own event with free Chopped Water for all attendees.</p>
+          </li>
+          <li class="collective__item">
+            <h4>Free Resources</h4>
+            <p>Cash-flow templates and additional tools to support your business and life.</p>
+          </li>
+          <li class="collective__item">
+            <h4>Community Chat</h4>
+            <p>A dedicated group chat to ask questions, share, and stay connected.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS ========== -->
+    <section class="testimonials" id="testimonials">
+      <header class="testimonials__head">
+        <p class="section-tag" data-reveal>08 — In Their Words</p>
+        <h2 class="testimonials__title" data-split>What women are <em>saying.</em></h2>
+      </header>
+
+      <div class="testimonials__grid">
+        <figure class="testimonial" data-reveal>
+          <span class="testimonial__mark" aria-hidden="true">&ldquo;</span>
+          <blockquote class="testimonial__quote">
+            OMG Jass, I can't even explain how much this class changed me. It's so powerful to actually run the numbers... you completely changed my day and the way I see the business.
+          </blockquote>
+          <figcaption class="testimonial__cite">
+            <span class="testimonial__name">Rise &amp; Thrive Member</span>
+          </figcaption>
+        </figure>
+
+        <figure class="testimonial" data-reveal>
+          <span class="testimonial__mark" aria-hidden="true">&ldquo;</span>
+          <blockquote class="testimonial__quote">
+            Thank you Jas for helping me navigate this difficult chapter in my life!!! Not only did your course provide clarity but also helped me prioritize my goals and declutter my mind and personal space. The mindset shift is truly powerful ...thank you for helping me re-align with my true self ...you are amazing ❤️
+          </blockquote>
+          <figcaption class="testimonial__cite">
+            <span class="testimonial__name">Rise &amp; Thrive Member</span>
+          </figcaption>
+        </figure>
+
+        <figure class="testimonial" data-reveal>
+          <span class="testimonial__mark" aria-hidden="true">&ldquo;</span>
+          <blockquote class="testimonial__quote">
+            Hi Jas. Thank you for bringing clarity in my life through your course. I really am able to take 100% responsibility of the choices I am making and able to navigate my life better. We can't control the events happening in our lives- but we surely can decide how we react towards them. Another eye opening thing was the financial clarity that I got from your course. I am able to track and manage my expenses properly. Just having the right mindset really helps in creating abundance in our lives. Thank you for bringing that clarity.
+          </blockquote>
+          <figcaption class="testimonial__cite">
+            <span class="testimonial__name">Rise &amp; Thrive Member</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ========== BRAND PROMISE ========== -->
+    <section class="promise">
+      <p class="section-tag section-tag--light" data-reveal>09 — The Promise</p>
+      <h2 class="promise__title" data-split>
+        More than a membership.<br/>
+        More than a coaching program.<br/>
+        <em>A transformation.</em>
+      </h2>
+      <p class="promise__body" data-reveal>
+        Every experience, every conversation, every resource within Rise &amp; Thrive is designed to deliver real ROI — personally and professionally. Your investment here comes back to you tenfold.
+      </p>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section class="contact" id="contact">
+      <div class="contact__inner">
+        <div class="contact__lead">
+          <p class="section-tag" data-reveal>10 — Step In</p>
+          <h2 class="contact__title" data-split>Widen <em>the table.</em></h2>
+          <p class="contact__body" data-reveal>
+            Tell us where you are and where you're going. We'll point you toward the right room — coaching, community, or connection.
+          </p>
+
+          <ul class="contact__details">
+            <li>
+              <span class="contact__label">Linktree</span>
+              <span class="contact__value"><a href="https://linktr.ee/jas.drai" target="_blank" rel="noopener">linktr.ee/jas.drai</a></span>
+            </li>
+            <li>
+              <span class="contact__label">Visit</span>
+              <span class="contact__value">328 Main Street West</span>
+            </li>
+            <li>
+              <span class="contact__label">Call</span>
+              <span class="contact__value"><a href="tel:9052056235">905.205.6235</a></span>
+            </li>
+            <li>
+              <span class="contact__label">Write</span>
+              <span class="contact__value"><a href="mailto:hello@riseandthrive.com">hello@riseandthrive.com</a></span>
+            </li>
+          </ul>
+        </div>
+
+        <form class="contact__form" action="https://formspree.io/f/xpqbyyop" method="POST" data-reveal>
+          <label class="field">
+            <span>Your name</span>
+            <input type="text" name="name" required autocomplete="name" />
+          </label>
+          <label class="field">
+            <span>Email</span>
+            <input type="email" name="email" required autocomplete="email" />
+          </label>
+          <label class="field">
+            <span>What season are you in?</span>
+            <textarea name="message" rows="4" required></textarea>
+          </label>
+          <button type="submit" class="btn btn--primary contact__submit" data-magnetic>
+            <span>Send a note</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="footer__top">
+      <a href="#top" class="footer__mark">
+        <span style="display:block; width:300px; aspect-ratio:6/1; background:url('images/logo.jpg') center/cover no-repeat, #E0D5E0; background-blend-mode:multiply; filter:invert(1);"></span>
+      </a>
+      <p class="footer__tag">Opening the room. Widening the table.</p>
+    </div>
+    <div class="footer__bottom">
+      <small>© 2026 Rise &amp; Thrive Collective. All rights reserved.</small>
+      <ul class="footer__links">
+        <li><a href="https://linktr.ee/jas.drai" target="_blank" rel="noopener">Linktree</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">LinkedIn</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- ========== LIBS (CDN — enhance if available) ========== -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+  <script>
+/* =========================================================
+   Rise & Thrive Collective — Motion Layer v4 (inline)
+   ========================================================= */
+(() => {
+  const reduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isCoarse = window.matchMedia('(pointer: coarse)').matches;
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+  document.documentElement.classList.add('js');
+
+  /* 1. Curtain */
+  const curtain = document.querySelector('.curtain');
+  const closeCurtain = () => {
+    if (!curtain) return;
+    curtain.classList.add('is-done');
+    setTimeout(() => curtain && curtain.remove(), 1400);
+  };
+  if (reduced) { closeCurtain(); }
+  else { setTimeout(closeCurtain, 600); window.addEventListener('load', closeCurtain, { once: true }); }
+
+  /* 2. Reveal observer */
+  if ('IntersectionObserver' in window && !reduced) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+    document.querySelectorAll('[data-reveal], [data-pillar]').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal], [data-pillar]').forEach(el => el.classList.add('is-in'));
+  }
+
+  /* 3. Nav scroll */
+  const nav = document.querySelector('.nav');
+  if (nav) {
+    const onScroll = () => { nav.classList.toggle('is-scrolled', window.scrollY > 40); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* 4. Sticky story frame swap */
+  (function() {
+    const media = document.querySelector('[data-story-image]');
+    const panels = [...document.querySelectorAll('.story__panel')];
+    if (!media || !panels.length) return;
+    const swap = i => { media.classList.remove('show-0','show-1','show-2'); media.classList.add('show-' + i); };
+    const update = () => {
+      let active = 0;
+      panels.forEach((p, i) => {
+        const rect = p.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.55) active = i;
+      });
+      swap(active);
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+
+  /* 5. GSAP enhancements */
+  if (reduced || !window.gsap) return;
+  try {
+    if (window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+    /* Lenis */
+    let lenis = null;
+    if (!isCoarse && window.Lenis) {
+      try {
+        lenis = new Lenis({ duration: 1.15, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true, lerp: 0.085 });
+        const raf = time => { lenis.raf(time); requestAnimationFrame(raf); };
+        requestAnimationFrame(raf);
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+          a.addEventListener('click', e => {
+            const id = a.getAttribute('href');
+            if (id.length > 1) { const tgt = document.querySelector(id); if (tgt) { e.preventDefault(); lenis.scrollTo(tgt, { offset: -20, duration: 1.4 }); } }
+          });
+        });
+        if (window.ScrollTrigger) { lenis.on('scroll', ScrollTrigger.update); gsap.ticker.add(time => lenis.raf(time * 1000)); gsap.ticker.lagSmoothing(0); }
+      } catch(e) { lenis = null; }
+    }
+
+    /* Word splitter */
+    function splitWords(el) {
+      const lines = el.innerHTML.split(/<br\s*\/?>/i);
+      el.innerHTML = '';
+      lines.forEach((lineHtml, lineIdx) => {
+        const tmp = document.createElement('span');
+        tmp.innerHTML = lineHtml;
+        const walker = document.createTreeWalker(tmp, NodeFilter.SHOW_TEXT, null);
+        const textNodes = [];
+        let n; while ((n = walker.nextNode())) textNodes.push(n);
+        textNodes.forEach(tn => {
+          /* Skip text inside <em> tags — preserve script-font accents as natural inline text
+             so they aren't clipped by overflow:hidden word wrappers */
+          if (tn.parentElement && tn.parentElement.tagName === 'EM') return;
+          const frag = document.createDocumentFragment();
+          tn.nodeValue.split(/(\s+)/).forEach(w => {
+            if (!w.trim()) { frag.appendChild(document.createTextNode(w)); return; }
+            const wrap = document.createElement('span');
+            wrap.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:top;';
+            const inner = document.createElement('span');
+            inner.style.cssText = 'display:inline-block;will-change:transform;';
+            inner.textContent = w;
+            wrap.appendChild(inner);
+            frag.appendChild(wrap);
+          });
+          tn.replaceWith(frag);
+        });
+        while (tmp.firstChild) el.appendChild(tmp.firstChild);
+        if (lineIdx < lines.length - 1) el.appendChild(document.createElement('br'));
+      });
+      return el.querySelectorAll('span > span');
+    }
+
+    /* Char splitter */
+    function splitChars(el) {
+      const text = el.textContent; el.textContent = '';
+      const out = [];
+      [...text].forEach(ch => {
+        if (ch === ' ') { el.appendChild(document.createTextNode(' ')); return; }
+        const wrap = document.createElement('span');
+        wrap.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:top;';
+        const inner = document.createElement('span');
+        inner.style.cssText = 'display:inline-block;will-change:transform;';
+        inner.textContent = ch;
+        wrap.appendChild(inner);
+        el.appendChild(wrap);
+        out.push(inner);
+      });
+      return out;
+    }
+
+    /* Word reveals */
+    if (window.ScrollTrigger) {
+      document.querySelectorAll('[data-split]').forEach(el => {
+        const inner = splitWords(el);
+        gsap.set(inner, { yPercent: 110, opacity: 0 });
+        ScrollTrigger.create({ trigger: el, start: 'top 88%', once: true,
+          onEnter: () => gsap.to(inner, { yPercent: 0, opacity: 1, duration: 1.05, ease: 'expo.out', stagger: 0.06 })
+        });
+      });
+    }
+
+    /* Hero char split */
+    document.querySelectorAll('[data-split-chars]').forEach(el => {
+      const chars = splitChars(el);
+      gsap.fromTo(chars, { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.2, ease: 'expo.out', stagger: 0.05, delay: 0.4 });
+    });
+
+    /* Hero amp */
+    const amp = document.querySelector('.hero__amp');
+    if (amp) gsap.fromTo(amp, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 1.2, delay: 0.85, ease: 'expo.out' });
+
+    /* Tile parallax */
+    if (window.ScrollTrigger && !isMobile) {
+      document.querySelectorAll('.hero__tile').forEach((tile, i) => {
+        const img = tile.querySelector('img'); if (!img) return;
+        const dir = i % 2 === 0 ? -1 : 1;
+        gsap.fromTo(img, { yPercent: dir * -6 }, { yPercent: dir * 6, ease: 'none',
+          scrollTrigger: { trigger: tile, start: 'top bottom', end: 'bottom top', scrub: 0.8 }
+        });
+      });
+      document.querySelectorAll('[data-parallax] img').forEach(img => {
+        gsap.fromTo(img, { yPercent: -8, scale: 1.08 }, { yPercent: 8, scale: 1.08, ease: 'none',
+          scrollTrigger: { trigger: img.closest('[data-parallax]'), start: 'top bottom', end: 'bottom top', scrub: 0.8 }
+        });
+      });
+    }
+
+    /* Collective stagger */
+    if (window.ScrollTrigger) {
+      const items = document.querySelectorAll('.collective__item');
+      if (items.length) {
+        gsap.set(items, { opacity: 0, y: 24 });
+        ScrollTrigger.create({ trigger: '.collective__card', start: 'top 75%', once: true,
+          onEnter: () => gsap.to(items, { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out', stagger: 0.05 })
+        });
+      }
+    }
+
+    /* Magnetic buttons */
+    if (!isCoarse) {
+      document.querySelectorAll('[data-magnetic]').forEach(el => {
+        el.addEventListener('mousemove', e => {
+          const r = el.getBoundingClientRect();
+          gsap.to(el, { x: ((e.clientX - (r.left + r.width/2)) / r.width) * 18, y: ((e.clientY - (r.top + r.height/2)) / r.height) * 18, duration: 0.5, ease: 'expo.out' });
+        });
+        el.addEventListener('mouseleave', () => gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1,0.4)' }));
+      });
+    }
+
+    /* Custom cursor */
+    if (!isCoarse) {
+      const cursor = document.querySelector('.cursor');
+      const dot = document.querySelector('.cursor__dot');
+      const ring = document.querySelector('.cursor__ring');
+      if (cursor && dot && ring) {
+        document.body.classList.add('has-cursor');
+        let mx = innerWidth/2, my = innerHeight/2, dx = mx, dy = my, rx = mx, ry = my;
+        addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+        (function tick() {
+          dx += (mx-dx)*0.5; dy += (my-dy)*0.5;
+          rx += (mx-rx)*0.18; ry += (my-ry)*0.18;
+          dot.style.transform  = `translate(${dx}px,${dy}px) translate(-50%,-50%)`;
+          ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+          requestAnimationFrame(tick);
+        })();
+        const hoverable = 'a,button,[data-magnetic],input,textarea,.pillar__media,.hero__tile,.founder__image,.collective__item';
+        document.querySelectorAll(hoverable).forEach(el => {
+          el.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
+          el.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
+        });
+      }
+    }
+
+    if (document.fonts && document.fonts.ready && window.ScrollTrigger) {
+      document.fonts.ready.then(() => ScrollTrigger.refresh());
+    }
+  } catch(err) {
+    console.warn('R&T motion enhancements skipped:', err);
+  }
+})();
+  </script>
+</body>
+</html>
