@@ -709,7 +709,10 @@ body.has-cursor .cursor { opacity:1; }
   border-top: 1px solid var(--limewash);
 }
 /* Once JS is active, overflow is managed by GSAP */
-.js .offer-col__body { overflow: hidden; }
+.js .offer-col__body { overflow: hidden; will-change: height; }
+.js .offer-col__inner { will-change: opacity, transform; }
+/* Smoother summary tap (no double-tap flicker on iOS) */
+.offer-col__summary { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 .offer-col__body > * + * { margin-top: var(--s-5); }
 .offer-col__lede {
   font-family: var(--ff-serif); font-size: var(--fs-md);
@@ -1114,7 +1117,7 @@ body.has-cursor .cursor { opacity:1; }
       </div>
 
       <div class="hero__cta">
-        <a href="#contact" class="btn btn--primary" data-magnetic><span>Join the Collective</span></a>
+        <a href="#contact" class="btn btn--primary" data-magnetic><span>Contact Us</span></a>
         <a href="#mission" class="btn btn--link" data-magnetic><span>Read our story</span><i class="arrow">→</i></a>
       </div>
 
@@ -1153,7 +1156,7 @@ body.has-cursor .cursor { opacity:1; }
 
       <div class="pillars__intro-wrap" data-reveal>
         <p class="pillars__intro">Rise &amp; Thrive is grounded in the understanding that women don't just need motivation, they need a room, a strategy, and a community that holds them accountable. Every program, every conversation, every resource is designed to deliver real ROI, both personally and professionally.</p>
-        <p class="pillars__intro">The brand voice is warm, real, and deeply human. Powerful, never intimidating. Honest and direct, but always in your corner — the most successful woman in the room who still makes everyone feel welcome.</p>
+        <p class="pillars__intro">The brand voice is warm, real, and deeply human. Powerful, never intimidating. Honest and direct, but always in your corner, the most successful woman in the room who still makes everyone feel welcome.</p>
       </div>
 
       <div class="pillars__grid">
@@ -1164,7 +1167,7 @@ body.has-cursor .cursor { opacity:1; }
           </figure>
           <div class="pillar__body">
             <h3 class="pillar__title">Coaching</h3>
-            <p>One-to-one private coaching grounded in lived experience and Jack Canfield's Success Principles. We lead with clarity. We follow with action.</p>
+            <p>Rise &amp; Thrive private coaching is grounded in lived experience and Jack Canfield's Success Principles. We lead with clarity. We follow with action.</p>
             <p class="pillar__cta-line">Click below for more details.</p>
             <a href="#offerings" class="pillar__cta-btn" data-magnetic>Explore coaching →</a>
           </div>
@@ -1212,10 +1215,10 @@ body.has-cursor .cursor { opacity:1; }
             Built by a woman <em>who has lived it.</em>
           </h2>
           <p class="founder__body" data-reveal>
-            Jas Rai is a high-performing entrepreneur and mother. Jas spent years in the corporate world before making the deliberate choice to build something of her own. She became a Chopped Leaf franchisee, growing her portfolio to multiple locations and mastering every layer of what it takes to run a real business: operations, people, numbers, and growth. She then co-founded Creekside Millworks, expanding her entrepreneurial footprint into the trades — an industry that demands precision, trust, and relentless execution. Through it all, she was intentionally designing a life centered on family and freedom.
+            Jas Rai is a high-performing entrepreneur and mother. Jas spent years in the corporate world before making the deliberate choice to build something of her own. She became a Chopped Leaf franchisee, growing her portfolio to multiple locations and mastering every layer of what it takes to run a real business, operations, people, numbers, and growth. She then co-founded Creekside Millworks, expanding her entrepreneurial footprint into the trades: an industry that demands precision, trust, and relentless execution. Through it all, she was intentionally designing a life centered on family and freedom.
           </p>
           <p class="founder__body" data-reveal>
-            Now, Jas channels everything she has earned: the wins, the hard lessons, the boardroom instincts — into Rise &amp; Thrive. As a Certified Canfield Success Principles Coach and founder of Rise &amp; Thrive, she creates the room she once needed: a supportive community where women in business strengthen their mindset, understand their money, and believe that bigger is possible. Real strategy. Real accountability. A community that moves with them.
+            Now, Jas channels everything she has earned: the wins, the hard lessons, the boardroom instincts into Rise &amp; Thrive. As a Certified Canfield Success Principles Coach and founder of Rise &amp; Thrive, she creates the room she once needed: a supportive community where women in business strengthen their mindset, understand their money, and believe that bigger is possible. Real strategy. Real accountability. A community that moves with them.
           </p>
 
           <div class="founder__sign" data-reveal>
@@ -1776,52 +1779,87 @@ body.has-cursor .cursor { opacity:1; }
       document.fonts.ready.then(() => ScrollTrigger.refresh());
     }
 
-    /* ── Smooth accordion (GSAP height) ── */
+    /* ── Smooth accordion (GSAP height + opacity timeline) ── */
     document.querySelectorAll('.offer-col--toggle').forEach(details => {
       const summary = details.querySelector('.offer-col__summary');
       const body    = details.querySelector('.offer-col__body');
       if (!summary || !body) return;
-      let busy = false;
 
-      /* Init — set height to 0 if closed so GSAP owns it from start */
+      /* Inner content wrapper for transform-based fade (smoother than opacity alone) */
+      const inner = document.createElement('div');
+      inner.className = 'offer-col__inner';
+      while (body.firstChild) inner.appendChild(body.firstChild);
+      body.appendChild(inner);
+
+      let busy = false;
+      let activeTween = null;
+
+      /* Init — closed state */
       if (!details.open) {
-        gsap.set(body, { height: 0, opacity: 0 });
+        gsap.set(body,  { height: 0, overflow: 'hidden' });
+        gsap.set(inner, { opacity: 0, y: -8 });
+      } else {
+        gsap.set(inner, { opacity: 1, y: 0 });
       }
 
       summary.addEventListener('click', e => {
         e.preventDefault();
-        if (busy) return;
-        busy = true;
+        e.stopPropagation();
+
+        /* Allow interruption — kill active tween instead of blocking */
+        if (activeTween) activeTween.kill();
 
         if (details.open) {
           /* ── CLOSE ── */
-          gsap.to(body, {
-            height: 0,
-            opacity: 0,
-            duration: 0.52,
-            ease: 'expo.inOut',
+          const currentH = body.offsetHeight;
+          gsap.set(body, { height: currentH });
+
+          activeTween = gsap.timeline({
+            defaults: { force3D: true },
             onComplete: () => {
               details.removeAttribute('open');
-              busy = false;
+              gsap.set(body, { height: 0 });
+              activeTween = null;
             }
-          });
+          })
+            .to(inner, {
+              opacity: 0,
+              y: -6,
+              duration: 0.32,
+              ease: 'power2.in'
+            }, 0)
+            .to(body, {
+              height: 0,
+              duration: 0.6,
+              ease: 'power3.inOut'
+            }, 0.05);
         } else {
           /* ── OPEN ── */
           details.setAttribute('open', '');
-          const target = body.scrollHeight;
-          gsap.fromTo(body,
-            { height: 0, opacity: 0 },
-            {
-              height: target,
-              opacity: 1,
-              duration: 0.65,
-              ease: 'expo.out',
-              onComplete: () => {
-                gsap.set(body, { height: 'auto' });
-                busy = false;
-              }
+          /* Measure with auto height, then animate from current state */
+          const startH = body.offsetHeight;
+          gsap.set(body, { height: 'auto' });
+          const targetH = body.offsetHeight;
+          gsap.set(body, { height: startH });
+
+          activeTween = gsap.timeline({
+            defaults: { force3D: true },
+            onComplete: () => {
+              gsap.set(body, { height: 'auto' });
+              activeTween = null;
             }
-          );
+          })
+            .to(body, {
+              height: targetH,
+              duration: 0.7,
+              ease: 'power3.out'
+            }, 0)
+            .to(inner, {
+              opacity: 1,
+              y: 0,
+              duration: 0.55,
+              ease: 'power2.out'
+            }, 0.15);
         }
       });
     });
