@@ -383,7 +383,7 @@ body.has-cursor .cursor { opacity:1; }
 .pillars::after  { bottom:0; }
 .pillars__head {
   display:flex; align-items:end; justify-content:space-between;
-  flex-wrap:wrap; gap:var(--s-6); margin-bottom:var(--s-9);
+  flex-wrap:wrap; gap:var(--s-6); margin-bottom:var(--s-7);
   max-width:var(--maxw); margin-inline:auto;
 }
 .pillars__title {
@@ -395,6 +395,19 @@ body.has-cursor .cursor { opacity:1; }
   font-family:var(--ff-script); font-style:normal; font-size:1.6em;
   color:var(--hazy); vertical-align:middle; line-height:0.7;
   position:relative; top:-0.04em;
+}
+.pillars__intro-wrap {
+  max-width:var(--maxw); margin-inline:auto;
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:var(--s-6) clamp(32px, 5vw, 80px);
+  margin-bottom:var(--s-8);
+}
+.pillars__intro {
+  font-family:var(--ff-serif); font-size:clamp(1rem, 1.25vw, 1.2rem);
+  line-height:1.72; color:var(--plum); margin:0;
+}
+@media(max-width:720px){
+  .pillars__intro-wrap { grid-template-columns:1fr; gap:var(--s-5); }
 }
 .pillars__grid {
   display:grid; grid-template-columns:repeat(3, 1fr);
@@ -418,6 +431,23 @@ body.has-cursor .cursor { opacity:1; }
 .pillar__body p {
   font-family:var(--ff-serif); font-size:var(--fs-lg);
   line-height:1.55; color:var(--chocolate-soft); max-width:36ch;
+}
+.pillar__cta-line {
+  font-family:var(--ff-sans); font-size:0.8rem;
+  letter-spacing:0.04em; color:var(--hazy);
+  margin-top:var(--s-4) !important; margin-bottom:var(--s-3) !important;
+}
+.pillar__cta-btn {
+  display:inline-block;
+  font-family:var(--ff-sans); font-size:0.82rem;
+  font-weight:500; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--chocolate); text-decoration:none;
+  border:1px solid var(--limewash); border-radius:999px;
+  padding:0.55em 1.5em;
+  transition:background .3s ease, color .3s ease, border-color .3s ease;
+}
+.pillar__cta-btn:hover {
+  background:var(--green); color:var(--oatmeal); border-color:var(--green);
 }
 
 /* ---- FOUNDER — DEEP GREEN ---- */
@@ -542,7 +572,7 @@ body.has-cursor .cursor { opacity:1; }
 
 /* ---- COLLECTIVE ---- */
 .collective {
-  padding: var(--s-12) var(--gutter);
+  padding: var(--s-10) var(--gutter) var(--s-7);
   background: linear-gradient(180deg, var(--oatmeal-warm) 0%, var(--oatmeal) 100%);
 }
 .collective__head { text-align:center; max-width:720px; margin:0 auto var(--s-8); }
@@ -617,6 +647,125 @@ body.has-cursor .cursor { opacity:1; }
   font-family:var(--ff-script); font-style:normal; font-size:1.1em;
   color:var(--hazy); vertical-align:middle; line-height:0.7;
   position:relative; top:-0.04em;
+}
+
+/* ---- OFFER GRID (two columns) ---- */
+.offer-grid {
+  max-width: 1280px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 3vw, 48px);
+  align-items: start;
+}
+.offer-col {
+  background: var(--oatmeal-soft);
+  border: 1px solid var(--limewash);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow .4s var(--ease-out-expo);
+}
+.offer-col::before {
+  content: ""; position: absolute;
+  top: 0; left: 24%; right: 24%; height: 3px;
+  background: var(--green); z-index: 2;
+}
+.offer-col[open] { box-shadow: 0 30px 60px -25px rgba(45,59,44,0.18); }
+.offer-col__summary {
+  list-style: none;
+  cursor: pointer;
+  padding: clamp(24px, 3vw, 40px) clamp(24px, 3vw, 44px);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--s-5);
+  transition: background .35s var(--ease-out-expo);
+}
+.offer-col__summary::-webkit-details-marker { display: none; }
+.offer-col__summary:hover { background: rgba(132,105,87,0.06); }
+.offer-col__tag {
+  font-family: var(--ff-display); font-style: italic;
+  font-size: var(--fs-sm); letter-spacing: 0.2em; color: var(--hazy);
+  align-self: center;
+}
+.offer-col__title {
+  font-family: var(--ff-display); font-weight: 400;
+  font-size: clamp(1.45rem, 2.2vw, 2rem);
+  line-height: 1.05; letter-spacing: -0.02em;
+  color: var(--green);
+  margin: 0;
+}
+.offer-col__chev {
+  font-family: var(--ff-sans); font-weight: 400;
+  font-size: clamp(1.1rem, 1.4vw, 1.4rem);
+  color: var(--hazy); line-height: 1;
+  width: 36px; height: 36px; display: grid; place-items: center;
+  border: 1px solid var(--limewash); border-radius: 999px;
+  transition: transform .4s var(--ease-out-expo), background .35s ease, color .35s ease;
+}
+.offer-col[open] .offer-col__chev { transform: rotate(180deg); background: var(--green); color: var(--oatmeal); border-color: var(--green); }
+/* No-JS: body always visible; JS sets height:0 on init */
+.offer-col__body {
+  padding: 0 clamp(24px, 3vw, 44px) clamp(28px, 3.5vw, 52px);
+  border-top: 1px solid var(--limewash);
+}
+/* Once JS is active, overflow is managed by GSAP */
+.js .offer-col__body { overflow: hidden; }
+.offer-col__body > * + * { margin-top: var(--s-5); }
+.offer-col__lede {
+  font-family: var(--ff-serif); font-size: var(--fs-md);
+  line-height: 1.55; color: var(--chocolate-soft);
+  padding-top: var(--s-5);
+}
+.offer-program { padding: var(--s-6) 0; border-bottom: 1px dashed var(--limewash); }
+.offer-program:last-child { border-bottom: 0; padding-bottom: 0; }
+.offer-program__title {
+  font-family: var(--ff-display); font-weight: 500;
+  font-size: var(--fs-lg); color: var(--chocolate);
+  margin-bottom: var(--s-3); letter-spacing: -0.005em;
+}
+.offer-program__title span {
+  display: block; font-weight: 400; font-style: italic;
+  font-size: 0.78em; color: var(--hazy); margin-top: 4px;
+  font-family: var(--ff-serif);
+}
+.offer-program__desc {
+  font-family: var(--ff-serif); font-size: var(--fs-md);
+  line-height: 1.55; color: var(--chocolate-soft);
+  margin-bottom: var(--s-4);
+}
+.offer-program__list {
+  list-style: none; padding: 0; margin: 0 0 var(--s-4);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.offer-program__list li {
+  position: relative; padding-left: var(--s-5);
+  font-family: var(--ff-serif); font-size: var(--fs-md);
+  line-height: 1.5; color: var(--chocolate);
+}
+.offer-program__list li::before {
+  content: ""; position: absolute; left: 0; top: 0.7em;
+  width: 14px; height: 1px; background: var(--hazy);
+}
+.offer-program__fit {
+  font-family: var(--ff-serif); font-style: italic;
+  font-size: var(--fs-sm); line-height: 1.55;
+  color: var(--chocolate-soft);
+  padding-top: var(--s-3); border-top: 1px solid var(--limewash);
+}
+.offer-program__fit em {
+  font-style: normal; font-weight: 600;
+  color: var(--chocolate); margin-right: 4px;
+}
+.collective__list--col {
+  display: flex; flex-direction: column;
+  counter-reset: collective;
+  gap: 0;
+}
+.collective__list--col .collective__item {
+  padding: var(--s-4) 0 var(--s-4) var(--s-7);
+}
+@media (max-width: 980px) {
+  .offer-grid { grid-template-columns: 1fr; }
 }
 
 /* ---- TESTIMONIALS ---- */
@@ -766,6 +915,33 @@ body.has-cursor .cursor { opacity:1; }
   transition:border-color .3s; resize:vertical; outline:none;
 }
 .field input:focus, .field textarea:focus { border-bottom-color:var(--green); }
+.field--interest { border:0; padding:0; margin-top:calc(var(--s-3) * -1); }
+.field--interest legend {
+  font-family:var(--ff-serif); font-style:italic;
+  font-size:var(--fs-sm); letter-spacing:0.18em; text-transform:uppercase; color:var(--hazy);
+  margin-bottom:var(--s-3); padding:0;
+}
+.interest-group { display:flex; flex-direction:column; gap:var(--s-3); align-items:flex-start; }
+.interest-pill { position:relative; cursor:pointer; }
+.interest-pill input {
+  position:absolute; opacity:0; width:0; height:0; pointer-events:none;
+}
+.interest-pill span {
+  display:inline-block;
+  font-family:var(--ff-sans); font-size:0.78rem;
+  font-weight:500; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--chocolate); background:transparent;
+  border:1px solid var(--limewash); border-radius:999px;
+  padding:0.7em 1.4em;
+  transition:background .3s ease, color .3s ease, border-color .3s ease, transform .3s ease;
+}
+.interest-pill:hover span { border-color:var(--hazy); color:var(--hazy); }
+.interest-pill input:checked + span {
+  background:var(--green); color:var(--oatmeal); border-color:var(--green);
+}
+.interest-pill input:focus-visible + span {
+  outline:2px solid var(--hazy); outline-offset:3px;
+}
 .contact__submit { margin-top:var(--s-4); align-self:start; }
 
 /* ---- FOOTER ---- */
@@ -870,6 +1046,8 @@ body.has-cursor .cursor { opacity:1; }
   *,*::before,*::after { animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
   .js [data-reveal],.js [data-pillar] { opacity:1 !important; transform:none !important; clip-path:none !important; }
   .js [data-pillar] .pillar__media { clip-path:none !important; }
+  /* Accordion: skip GSAP height, let native details show body */
+  .offer-col__body { height:auto !important; opacity:1 !important; overflow:visible !important; }
   .js [data-pillar] .pillar__body { opacity:1 !important; transform:none !important; }
 }
 </style>
@@ -973,6 +1151,11 @@ body.has-cursor .cursor { opacity:1; }
         <h2 class="pillars__title" data-split>Three pillars. <em>One transformation.</em></h2>
       </header>
 
+      <div class="pillars__intro-wrap" data-reveal>
+        <p class="pillars__intro">Rise &amp; Thrive is grounded in the understanding that women don't just need motivation, they need a room, a strategy, and a community that holds them accountable. Every program, every conversation, every resource is designed to deliver real ROI, both personally and professionally.</p>
+        <p class="pillars__intro">The brand voice is warm, real, and deeply human. Powerful, never intimidating. Honest and direct, but always in your corner — the most successful woman in the room who still makes everyone feel welcome.</p>
+      </div>
+
       <div class="pillars__grid">
         <article class="pillar" data-pillar>
           <figure class="pillar__media placeholder" data-label="Coaching">
@@ -982,6 +1165,8 @@ body.has-cursor .cursor { opacity:1; }
           <div class="pillar__body">
             <h3 class="pillar__title">Coaching</h3>
             <p>One-to-one private coaching grounded in lived experience and Jack Canfield's Success Principles. We lead with clarity. We follow with action.</p>
+            <p class="pillar__cta-line">Click below for more details.</p>
+            <a href="#offerings" class="pillar__cta-btn" data-magnetic>Explore coaching →</a>
           </div>
         </article>
 
@@ -992,7 +1177,9 @@ body.has-cursor .cursor { opacity:1; }
           </figure>
           <div class="pillar__body">
             <h3 class="pillar__title">Community</h3>
-            <p>A room of women who hold each other accountable, who celebrate the wins and meet the hard seasons with strategy, not platitudes.</p>
+            <p>Rise &amp; Thrive Collective is a room of women who hold each other accountable, who celebrate the wins and meet the hard seasons with strategy, not platitudes.</p>
+            <p class="pillar__cta-line">Click below for more details.</p>
+            <a href="#offerings" class="pillar__cta-btn" data-magnetic>Explore the Collective →</a>
           </div>
         </article>
 
@@ -1003,7 +1190,9 @@ body.has-cursor .cursor { opacity:1; }
           </figure>
           <div class="pillar__body">
             <h3 class="pillar__title">Connection</h3>
-            <p>Rooms, retreats, and rituals designed to put you in front of the women who will shape your next chapter — and become the ones who shape yours.</p>
+            <p>Rise &amp; Thrive workshops and events are designed to put you in front of the women who will shape your next chapter.</p>
+            <p class="pillar__cta-line">Click below to be notified for future events.</p>
+            <a href="#contact" class="pillar__cta-btn" data-magnetic>Get on the Event List →</a>
           </div>
         </article>
       </div>
@@ -1023,10 +1212,10 @@ body.has-cursor .cursor { opacity:1; }
             Built by a woman <em>who has lived it.</em>
           </h2>
           <p class="founder__body" data-reveal>
-            Rise &amp; Thrive is grounded in the understanding that women don't just need motivation, they need a room, a strategy, and a community that holds them accountable. Every program, every conversation, every resource is designed to deliver real ROI, both personally and professionally.
+            Jas Rai is a high-performing entrepreneur and mother. Jas spent years in the corporate world before making the deliberate choice to build something of her own. She became a Chopped Leaf franchisee, growing her portfolio to multiple locations and mastering every layer of what it takes to run a real business: operations, people, numbers, and growth. She then co-founded Creekside Millworks, expanding her entrepreneurial footprint into the trades — an industry that demands precision, trust, and relentless execution. Through it all, she was intentionally designing a life centered on family and freedom.
           </p>
           <p class="founder__body" data-reveal>
-            The brand voice is warm, real, and deeply human. Powerful, never intimidating. Honest and direct, but always in your corner, the most successful woman in the room who still makes everyone feel welcome.
+            Now, Jas channels everything she has earned: the wins, the hard lessons, the boardroom instincts — into Rise &amp; Thrive. As a Certified Canfield Success Principles Coach and founder of Rise &amp; Thrive, she creates the room she once needed: a supportive community where women in business strengthen their mindset, understand their money, and believe that bigger is possible. Real strategy. Real accountability. A community that moves with them.
           </p>
 
           <div class="founder__sign" data-reveal>
@@ -1128,57 +1317,111 @@ body.has-cursor .cursor { opacity:1; }
         <p class="section-tag" data-reveal>07 — What We Offer</p>
         <h2 class="collective__title" data-split>Inside <em>the room.</em></h2>
         <p class="collective__intro" data-reveal>
-          Every offering is designed to keep you connected, supported, and rising — community, coaching, and the tools to turn ambition into action.
+          Every offering is designed to keep you connected, supported, and rising, community, coaching, and the tools to turn ambition into action.
         </p>
       </div>
 
-      <div class="collective__card" data-reveal>
-        <ul class="collective__list">
-          <li class="collective__item">
-            <h4>Community</h4>
-            <p>Connect with a curated group of high-achieving women.</p>
-          </li>
-          <li class="collective__item">
-            <h4>Bi-weekly Mastermind Sessions</h4>
-            <p>Peer-powered sessions using Jack Canfield's Success Principles to help you think bigger, move faster, and stay accountable.</p>
-          </li>
-          <li class="collective__item">
-            <h4>Collaboration</h4>
-            <p>Opportunities to partner, refer, and grow alongside women in the collective.</p>
-          </li>
-          <li class="collective__item">
-            <h4>1:1 Coaching</h4>
-            <p>One private coaching session for members who want deeper personalised support.</p>
-          </li>
-          <li class="collective__item">
-            <h4>Coffee Chats</h4>
-            <p>Casual connection calls to build real relationships within the community.</p>
-          </li>
-          <li class="collective__item">
-            <h4>Workshops</h4>
-            <p>Skill-building sessions designed for women ready to build.</p>
-          </li>
-          <li class="collective__item">
-            <h4>Founder's Dinners</h4>
-            <p>Intimate in-person gatherings to connect, celebrate, and go deeper together.</p>
-          </li>
-          <li class="collective__item">
-            <h4>Accountability Partner</h4>
-            <p>Get matched with a like-minded member to keep each other on track between sessions.</p>
-          </li>
-          <li class="collective__item">
-            <h4>Space to Host Your Own Events</h4>
-            <p>King George Chopped Leaf location to host your own event with free Chopped Water for all attendees.</p>
-          </li>
-          <li class="collective__item">
-            <h4>Free Resources</h4>
-            <p>Cash-flow templates and additional tools to support your business and life.</p>
-          </li>
-          <li class="collective__item">
-            <h4>Community Chat</h4>
-            <p>A dedicated group chat to ask questions, share, and stay connected.</p>
-          </li>
-        </ul>
+      <div class="offer-grid">
+        <!-- COLUMN 1: PRIVATE 1:1 COACHING -->
+        <details class="offer-col offer-col--toggle" data-reveal>
+          <summary class="offer-col__summary">
+            <span class="offer-col__tag">01</span>
+            <h3 class="offer-col__title">Private 1 on 1 Coaching</h3>
+            <span class="offer-col__chev" aria-hidden="true">↓</span>
+          </summary>
+
+          <div class="offer-col__body">
+            <p class="offer-col__lede">I help women in the season of transition, in personal or business, get clear on their goals and grow with purpose without self-doubt and burnout by using mindset, financial fundamentals and aligned action.</p>
+
+            <div class="offer-program">
+              <h4 class="offer-program__title">Rise &amp; Thrive <span>6-Week Group Program</span></h4>
+              <p class="offer-program__desc">A transformational online experience for women ready to take charge of their life and business.</p>
+              <ul class="offer-program__list">
+                <li>Weekly coaching sessions (live via Zoom)</li>
+                <li>Signature workbook + journal prompts</li>
+                <li>Mindset strategies using Jack Canfield's Success Principles</li>
+                <li>Clarity tools for life and business goals</li>
+                <li>Financial fundamentals + cash flow tracker</li>
+                <li>Supportive community of like-minded women</li>
+              </ul>
+              <p class="offer-program__fit"><em>Perfect for</em> women in transition, new entrepreneurs, or those seeking focus and confidence.</p>
+            </div>
+
+            <div class="offer-program">
+              <h4 class="offer-program__title">Rise &amp; Thrive Plus <span>4-Month Mentorship</span></h4>
+              <p class="offer-program__desc">Everything in the 6-week program plus extended support to deepen your clarity, build momentum, and take aligned action.</p>
+              <ul class="offer-program__list">
+                <li>Full access to the 6-Week Group Program</li>
+                <li>3 accountability Coaching Calls</li>
+                <li>1 hour personalized budget review</li>
+                <li>Vision Board Workshop (live or recorded)</li>
+                <li>Private WhatsApp group</li>
+                <li>Productive worksheet and tools</li>
+              </ul>
+              <p class="offer-program__fit"><em>Perfect for</em> women who want an accountability partner, personal guidance and are ready to integrate mindset, money, and meaningful action.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- COLUMN 2: THE COLLECTIVE -->
+        <details class="offer-col offer-col--toggle" data-reveal>
+          <summary class="offer-col__summary">
+            <span class="offer-col__tag">02</span>
+            <h3 class="offer-col__title">The Collective</h3>
+            <span class="offer-col__chev" aria-hidden="true">↓</span>
+          </summary>
+
+          <div class="offer-col__body">
+            <p class="offer-col__lede">A curated membership for women ready to rise together. Community, coaching, workshops, and the room to do the work that matters.</p>
+
+            <ul class="collective__list collective__list--col">
+              <li class="collective__item">
+                <h4>Community</h4>
+                <p>Connect with a curated group of high-achieving women.</p>
+              </li>
+              <li class="collective__item">
+                <h4>Bi-weekly Mastermind Sessions</h4>
+                <p>Peer-powered sessions using Jack Canfield's Success Principles to help you think bigger, move faster, and stay accountable.</p>
+              </li>
+              <li class="collective__item">
+                <h4>Collaboration</h4>
+                <p>Opportunities to partner, refer, and grow alongside women in the collective.</p>
+              </li>
+              <li class="collective__item">
+                <h4>1:1 Coaching</h4>
+                <p>One private coaching session for members who want deeper personalised support.</p>
+              </li>
+              <li class="collective__item">
+                <h4>Coffee Chats</h4>
+                <p>Casual connection calls to build real relationships within the community.</p>
+              </li>
+              <li class="collective__item">
+                <h4>Workshops</h4>
+                <p>Skill-building sessions designed for women ready to build.</p>
+              </li>
+              <li class="collective__item">
+                <h4>Founder's Dinners</h4>
+                <p>Intimate in-person gatherings to connect, celebrate, and go deeper together.</p>
+              </li>
+              <li class="collective__item">
+                <h4>Accountability Partner</h4>
+                <p>Get matched with a like-minded member to keep each other on track between sessions.</p>
+              </li>
+              <li class="collective__item">
+                <h4>Space to Host Your Own Events</h4>
+                <p>King George Chopped Leaf location to host your own event with free Chopped Water for all attendees.</p>
+              </li>
+              <li class="collective__item">
+                <h4>Free Resources</h4>
+                <p>Cash-flow templates and additional tools to support your business and life.</p>
+              </li>
+              <li class="collective__item">
+                <h4>Community Chat</h4>
+                <p>A dedicated group chat to ask questions, share, and stay connected.</p>
+              </li>
+            </ul>
+          </div>
+        </details>
       </div>
     </section>
 
@@ -1243,8 +1486,8 @@ body.has-cursor .cursor { opacity:1; }
             </li>
 
             <li>
-              <span class="contact__label">Call</span>
-              <span class="contact__value"><a href="tel:6049614835">604.961.4835</a></span>
+              <span class="contact__label">Text</span>
+              <span class="contact__value"><a href="sms:6049614835">604.961.4835</a></span>
             </li>
             <li>
               <span class="contact__label">Email</span>
@@ -1264,8 +1507,25 @@ body.has-cursor .cursor { opacity:1; }
           </label>
           <label class="field">
             <span>What season are you in?</span>
-            <textarea name="message" rows="4" required></textarea>
+            <textarea name="message" rows="2" required></textarea>
           </label>
+          <fieldset class="field field--interest">
+            <legend>What's calling you in?</legend>
+            <div class="interest-group">
+              <label class="interest-pill">
+                <input type="radio" name="interest" value="Private 1 on 1 Coaching" />
+                <span>Private 1 on 1 Coaching</span>
+              </label>
+              <label class="interest-pill">
+                <input type="radio" name="interest" value="The Collective" />
+                <span>The Collective</span>
+              </label>
+              <label class="interest-pill">
+                <input type="radio" name="interest" value="Upcoming Events" />
+                <span>Upcoming Events</span>
+              </label>
+            </div>
+          </fieldset>
           <button type="submit" class="btn btn--primary contact__submit" data-magnetic>
             <span>Send a note</span>
           </button>
@@ -1515,6 +1775,57 @@ body.has-cursor .cursor { opacity:1; }
     if (document.fonts && document.fonts.ready && window.ScrollTrigger) {
       document.fonts.ready.then(() => ScrollTrigger.refresh());
     }
+
+    /* ── Smooth accordion (GSAP height) ── */
+    document.querySelectorAll('.offer-col--toggle').forEach(details => {
+      const summary = details.querySelector('.offer-col__summary');
+      const body    = details.querySelector('.offer-col__body');
+      if (!summary || !body) return;
+      let busy = false;
+
+      /* Init — set height to 0 if closed so GSAP owns it from start */
+      if (!details.open) {
+        gsap.set(body, { height: 0, opacity: 0 });
+      }
+
+      summary.addEventListener('click', e => {
+        e.preventDefault();
+        if (busy) return;
+        busy = true;
+
+        if (details.open) {
+          /* ── CLOSE ── */
+          gsap.to(body, {
+            height: 0,
+            opacity: 0,
+            duration: 0.52,
+            ease: 'expo.inOut',
+            onComplete: () => {
+              details.removeAttribute('open');
+              busy = false;
+            }
+          });
+        } else {
+          /* ── OPEN ── */
+          details.setAttribute('open', '');
+          const target = body.scrollHeight;
+          gsap.fromTo(body,
+            { height: 0, opacity: 0 },
+            {
+              height: target,
+              opacity: 1,
+              duration: 0.65,
+              ease: 'expo.out',
+              onComplete: () => {
+                gsap.set(body, { height: 'auto' });
+                busy = false;
+              }
+            }
+          );
+        }
+      });
+    });
+
   } catch(err) {
     console.warn('R&T motion enhancements skipped:', err);
   }
