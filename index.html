@@ -946,6 +946,32 @@ body.has-cursor .cursor { opacity:1; }
   outline:2px solid var(--hazy); outline-offset:3px;
 }
 .contact__submit { margin-top:var(--s-4); align-self:start; }
+.field__optional { font-style:normal; opacity:0.5; font-size:0.85em; }
+.instagram-input {
+  display:flex; align-items:center;
+  border-bottom:1px solid var(--limewash);
+}
+.instagram-input__at {
+  font-family:var(--ff-serif); font-size:var(--fs-base);
+  color:var(--hazy); padding-right:2px; user-select:none;
+}
+.instagram-input input {
+  flex:1; border:none; background:transparent;
+  font-family:var(--ff-serif); font-size:var(--fs-base);
+  color:var(--chocolate); padding:0.5em 0; outline:none;
+}
+.btn--instagram {
+  display:inline-flex; align-items:center; gap:var(--s-3);
+  padding:0.7em 1.4em; border-radius:50px;
+  background:transparent; border:1.5px solid var(--limewash);
+  font-family:var(--ff-serif); font-size:var(--fs-sm);
+  color:var(--chocolate); letter-spacing:0.04em;
+  text-decoration:none; align-self:start;
+  transition:background .25s, border-color .25s, color .25s;
+}
+.btn--instagram:hover {
+  background:var(--green); border-color:var(--green); color:var(--oatmeal);
+}
 
 /* ---- FOOTER ---- */
 .footer {
@@ -1505,6 +1531,12 @@ body.has-cursor .cursor { opacity:1; }
             <input type="email" name="email" required autocomplete="email" />
           </label>
           <label class="field">
+            <span>Instagram handle</span>
+            <div class="instagram-input">
+              <input type="text" name="instagram" autocomplete="off" required />
+            </div>
+          </label>
+          <label class="field">
             <span>What season are you in?</span>
             <textarea name="message" rows="2" required></textarea>
           </label>
@@ -1528,6 +1560,7 @@ body.has-cursor .cursor { opacity:1; }
           <button type="submit" class="btn btn--primary contact__submit" data-magnetic>
             <span>Send a note</span>
           </button>
+
         </form>
       </div>
     </section>
